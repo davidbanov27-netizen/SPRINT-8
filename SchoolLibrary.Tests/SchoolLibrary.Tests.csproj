@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- Същата платформа като приложението, защото го реферира -->
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
