@@ -108,6 +108,7 @@ SchoolLibrary/                      ← корен на хранилището
 │   ├── 04_architecture.md          този документ
 │   ├── 05_books_and_readers.md     Етап 5: книги, екземпляри, читатели, тестове
 │   ├── 06_loans_and_returns.md     Етап 6: заемане и връщане
+│   ├── 07_search_overdue_persistence.md  Етап 7: търсене, просрочие, запис, дизайн
 │   ├── backlog.md                  актуален backlog
 │   ├── diagrams/                   схемите (.mmd = сорс, .png = за документи)
 │   └── prototype/prototype.html    кликаем прототип от Етап 3
@@ -116,7 +117,7 @@ SchoolLibrary/                      ← корен на хранилището
     ├── MainWindow.xaml(.cs)        меню + текущ екран
     ├── Themes/Styles.xaml          цветове и стилове
     ├── Models/                     Book, BookCopy, Reader, Loan, настройки
-    ├── Services/                   LibraryService (4 файла), ILibraryRepository, DataStore,
+    ├── Services/                   LibraryService (6 файла), ILibraryRepository, DataStore,
     │   │                           IAiSearchService, SeedData
     │   └── Validation/             BookValidator, CopyValidator, ReaderValidator, Isbn, OperationResult
     ├── ViewModels/                 по един ViewModel на екран
@@ -140,9 +141,10 @@ SchoolLibrary.Tests/                xUnit тестове (Етап 5)
 | Версия на данните | Безопасно обновяване на файла | ✅ `LibraryData.SchemaVersion = 2`; по-стар файл се копира в `library.v{N}.bak` | – |
 | Хранилище | Заменяемо през интерфейс | `ILibraryRepository` + `DataStore` (JSON) | SQLite – по-късно (**TD-07**) |
 | ИИ | Истински модел през API | `LocalAiSearchService` (правила, без интернет) | **TD-06** |
-| Тестове | Автоматични тестове | ✅ Проект `SchoolLibrary.Tests` (xUnit): книги, екземпляри, читатели, заемане/връщане, запис | Търсене с ИИ, статистика |
+| Тестове | Автоматични тестове | ✅ Проект `SchoolLibrary.Tests` (xUnit, 215 теста): книги, екземпляри, читатели, заемане/връщане, търсене, просрочие, запис | Търсене с ИИ, статистика |
+| Съхранение | Данните остават след рестартиране | ✅ `DataStore`: запис през временен файл, копие `.bak`, възстановяване, `DataIntegrity` | SQLite (**TD-07**) |
 
-`LibraryService` е `partial` клас в четири файла: `LibraryService.cs` (четене, търсене), `LibraryService.Loans.cs` (заемане и връщане – `Lend`, `Return`), `LibraryService.Books.cs` (книги и екземпляри), `LibraryService.Readers.cs` (читатели). Всяка операция по запис връща `OperationResult` със списък от грешки (поле + разбираемо съобщение на български), който екранът само показва. Подробности: [05_books_and_readers.md](05_books_and_readers.md).
+`LibraryService` е `partial` клас в шест файла: `LibraryService.cs` (четене), `LibraryService.Search.cs` (`FindBooks`), `LibraryService.Overdue.cs` (просрочие и блокиране), `LibraryService.Loans.cs` (заемане и връщане – `Lend`, `Return`), `LibraryService.Books.cs` (книги и екземпляри), `LibraryService.Readers.cs` (читатели). Всяка операция по запис връща `OperationResult` със списък от грешки (поле + разбираемо съобщение на български), който екранът само показва. Подробности: [05_books_and_readers.md](05_books_and_readers.md).
 
 ---
 
