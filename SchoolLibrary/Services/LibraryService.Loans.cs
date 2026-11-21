@@ -123,7 +123,7 @@ public partial class LibraryService
             problems.Add($"Достигнат лимит от {limit} книги.");
         }
 
-        var overdue = loans.FirstOrDefault(IsOverdue);
+        var overdue = OverdueLoansOf(reader).FirstOrDefault();
         if (overdue != null)
         {
             problems.Add($"Читателят има просрочена книга: „{GetBook(overdue.BookId)?.Title}“ " +

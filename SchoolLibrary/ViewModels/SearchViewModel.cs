@@ -56,19 +56,20 @@ public class SearchViewModel : PageViewModel
         if (Query.Trim().Length == 0)
         {
             Results = Array.Empty<ResultRow>();
-            Show(MessageKind.Warning, "Напишете заглавие, автор или тема.");
+            Show(MessageKind.Warning, "Напишете заглавие или автор.");
             return;
         }
 
-        Results = _s.SearchKeyword(Query).Select(b => RowFactory.ToResultRow(_s, b, "")).ToList();
+        Results = _s.FindBooks(Query).Select(r => RowFactory.ToResultRow(_s, r.Book, "")).ToList();
         if (Results.Count == 0)
         {
             Show(MessageKind.Warning,
-                "Няма намерени книги. Опитайте да опишете с думи какво търсите и натиснете „Попитай ИИ“.");
+                "Няма намерени книги по това заглавие или автор. Проверете написаното или опишете с думи какво търсите и натиснете „Попитай ИИ“.");
         }
         else
         {
-            ClearMessage();
+            var free = Results.Count(r => r.IsAvailable);
+            Show(MessageKind.Info, $"Намерени: {Results.Count}, от тях налични сега: {free}.");
         }
     }
 
