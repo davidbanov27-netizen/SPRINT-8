@@ -7,14 +7,15 @@ public sealed record ReturnResult(
 
 /// <summary>
 /// Цялата бизнес логика на библиотеката (BR-01 … BR-15).
-/// Класът е разделен на четири файла: този (четене и търсене), <c>LibraryService.Loans.cs</c> (заемане и връщане),
+/// Класът е разделен на шест файла: този (четене), <c>LibraryService.Search.cs</c> (търсене), <c>LibraryService.Overdue.cs</c> (просрочие),
+/// <c>LibraryService.Loans.cs</c> (заемане и връщане),
 /// <c>LibraryService.Books.cs</c> (книги и екземпляри) и <c>LibraryService.Readers.cs</c> (читатели).
 /// Екраните не пазят правила – те само извикват този клас.
 /// </summary>
 public partial class LibraryService
 {
     private static readonly char[] Separators =
-        { ' ', '\t', ',', '.', ';', ':', '-', '–', '"', '„', '“', '(', ')', '!', '?' };
+        { ' ', '\t', ',', '.', ';', ':', '-', '–', '"', '„', '“', '(', ')', '!', '?', '/', '_', '«', '»', '…' };
 
     private readonly ILibraryRepository _store;
     private readonly LibraryData _data;
@@ -26,7 +27,11 @@ public partial class LibraryService
         _store = store;
         _clock = clock ?? (() => DateTime.Today);
         _data = store.Load();
+        LoadNotice = store.LastError;
     }
+
+    /// <summary>Забележка от зареждането на данните (повреден файл, стара версия, несъответствия). Null = всичко е наред.</summary>
+    public string? LoadNotice { get; }
 
     public DateTime Today => _clock().Date;
     public LibrarySettings Settings => _data.Settings;
@@ -62,8 +67,6 @@ public partial class LibraryService
 
     public IReadOnlyList<Loan> LoansOf(Reader reader) => ActiveLoans.Where(l => l.ReaderId == reader.Id).ToList();
 
-    public bool IsOverdue(Loan loan) => loan.IsActive && loan.DueDate.Date < Today;
-    public int DaysOverdue(Loan loan) => IsOverdue(loan) ? (Today - loan.DueDate.Date).Days : 0;
 
     // ===== Търсене по думи (FR-18) =====
 
@@ -112,5 +115,12 @@ public partial class LibraryService
 
     private static int NextId(IEnumerable<int> ids) => ids.DefaultIfEmpty(0).Max() + 1;
 
-    private void Save() => _store.Save(_data);
+    /// <summary>Съобщава на екрана, че записът е бил неуспешен (или че е успял след предишна грешка).</summary>
+    public event Action<string?>? StorageStatusChanged;
+
+    private void Save()
+    {
+        _store.Save(_data);
+        StorageStatusChanged?.Invoke(_store.LastError);
+    }
 }

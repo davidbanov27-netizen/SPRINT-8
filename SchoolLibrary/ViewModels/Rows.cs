@@ -79,14 +79,16 @@ public sealed record BarRow(string Label, int Value, double BarWidth);
 
 public sealed record ConditionOption(string Label, BookCondition Value);
 
-public sealed record ResultRow(Book Book, string Why, bool IsAvailable)
+public sealed record ResultRow(Book Book, string Why, int Available, int Total)
 {
+    public bool IsAvailable => Available > 0;
     public string Title => Book.Title;
     public string Subtitle => $"{Book.Author} · {Book.AgeText}";
     public string Shelf => Book.Shelf.Length > 0 ? $"Рафт {Book.Shelf}" : "";
     public bool HasWhy => Why.Length > 0;
     public string WhyText => $"Защо: {Why}";
-    public string AvailabilityText => IsAvailable ? "налична ✔" : "няма налично ✖";
+    public string AvailabilityText =>
+        Available > 0 ? $"Налични: {Available} от {Total} ✔" : Total > 0 ? "Всички са заети ✖" : "Няма екземпляри ✖";
 }
 
 public static class RowFactory
@@ -99,15 +101,15 @@ public static class RowFactory
         var reader = s.GetReader(l.ReaderId);
         var days = s.DaysOverdue(l);
         return new LoanRow(l, book?.Title ?? "?", reader?.Name ?? "?", reader?.ClassName ?? "", days,
-            days > s.Settings.ReviewAfterDays, s.GetCopy(l.CopyId)?.InventoryNumber ?? "");
+            s.NeedsReview(l), s.GetCopy(l.CopyId)?.InventoryNumber ?? "");
     }
 
     public static ReaderRow ToReaderRow(LibraryService s, Reader r)
     {
         var loans = s.LoansOf(r);
-        return new ReaderRow(r, loans.Count, s.LimitOf(r), loans.Any(s.IsOverdue));
+        return new ReaderRow(r, loans.Count, s.LimitOf(r), s.IsBlocked(r));
     }
 
     public static ResultRow ToResultRow(LibraryService s, Book b, string why) =>
-        new(b, why, s.Available(b) > 0);
+        new(b, why, s.Available(b), s.TotalCopies(b));
 }

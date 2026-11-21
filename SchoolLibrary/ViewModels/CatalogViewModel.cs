@@ -162,7 +162,7 @@ public class CatalogViewModel : PageViewModel
     private void Refresh(int? selectId = null)
     {
         var keep = selectId ?? _selectedBook?.Id;
-        Books = _s.SearchKeyword(_searchText).Select(b => RowFactory.ToBookRow(_s, b)).ToList();
+        Books = _s.FindBooks(_searchText).Select(r => RowFactory.ToBookRow(_s, r.Book)).ToList();
         SelectedBook = Books.FirstOrDefault(b => b.Id == keep);
 
         // Записите са едни и същи обекти, затова обновяваме ръчно показаното за избраната книга.

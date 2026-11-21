@@ -24,8 +24,8 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Kind}" Value="Info">
                         <Setter Property="Visibility" Value="Visible"/>
-                        <Setter Property="Background" Value="{StaticResource InfoBg}"/>
-                        <Setter Property="BorderBrush" Value="{StaticResource InfoBorder}"/>
+                        <Setter Property="Background" Value="{DynamicResource InfoBg}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource InfoBorder}"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

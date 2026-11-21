@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Тема „Terracotta“ (Каталог). Всеки екран подава свои цветове; стиловете в Styles.xaml ги четат с DynamicResource. -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#C2410C"/>
+    <SolidColorBrush x:Key="AccentDarkBrush" Color="#973309"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#F9ECE7"/>
+    <SolidColorBrush x:Key="AccentBorderBrush" Color="#E8B7A3"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="#882E08"/>
+    <SolidColorBrush x:Key="InfoBg" Color="#F9ECE7"/>
+    <SolidColorBrush x:Key="InfoBorder" Color="#E8B7A3"/>
+</ResourceDictionary>

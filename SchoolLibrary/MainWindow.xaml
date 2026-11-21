@@ -33,23 +33,50 @@
         <Border Grid.Column="0" Width="200" Background="{StaticResource SideBrush}"
                 Visibility="{Binding IsSignedIn, Converter={StaticResource BoolToVis}}">
             <DockPanel>
-                <StackPanel DockPanel.Dock="Top" Margin="16,18,16,12">
-                    <TextBlock Text="{Binding UserTitle}" Foreground="White" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap"/>
-                    <TextBlock Text="{Binding UserMode}" Foreground="#CBD5E1" FontSize="12" Margin="0,2,0,0"/>
+                <StackPanel DockPanel.Dock="Top" Margin="18,20,18,14">
+                    <TextBlock Text="📚 Библиотека" Foreground="#FBD38D" FontSize="13" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding UserTitle}" Foreground="White" FontSize="17" FontWeight="Bold" TextWrapping="Wrap" Margin="0,6,0,0"/>
+                    <TextBlock Text="{Binding UserMode}" Foreground="#E7CDB8" FontSize="12" Margin="0,2,0,0"/>
                 </StackPanel>
 
                 <Button DockPanel.Dock="Bottom" Content="Изход" Command="{Binding LogoutCommand}"
-                        Margin="16" Background="Transparent" BorderBrush="#FCA5A5" Foreground="#FCA5A5"/>
+                        Margin="16" Background="Transparent" BorderBrush="#F3B8A8" Foreground="#F9D5C9"/>
 
                 <ListBox ItemsSource="{Binding NavItems}"
                          SelectedItem="{Binding SelectedNav}"
-                         DisplayMemberPath="Title"
+                         HorizontalContentAlignment="Stretch"
                          ItemContainerStyle="{StaticResource NavItemStyle}"
                          Background="Transparent" BorderThickness="0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Icon}" FontSize="17" Width="30"/>
+                                <TextBlock Text="{Binding Title}" FontSize="14.5" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </Border>
 
-        <ContentControl Grid.Column="1" Content="{Binding CurrentPage}"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Предупреждение за съхранението на данните (повреден файл, неуспешен запис) -->
+            <Border Grid.Row="0" Background="#FEF3C7" BorderBrush="#FCD34D" BorderThickness="0,0,0,1" Padding="18,10"
+                    Visibility="{Binding HasStorageNotice, Converter={StaticResource BoolToVis}}">
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Content="Разбрах" Command="{Binding DismissNoticeCommand}"
+                            Margin="12,0,0,0" Padding="12,4"/>
+                    <TextBlock Text="{Binding StorageNotice}" Foreground="#92400E" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                </DockPanel>
+            </Border>
+
+            <ContentControl Grid.Row="1" Content="{Binding CurrentPage}"/>
+        </Grid>
     </Grid>
 </Window>

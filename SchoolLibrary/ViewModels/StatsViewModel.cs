@@ -28,7 +28,7 @@ public class StatsViewModel : PageViewModel
         var monthMax = Math.Max(1, counts.Max(c => c.Count));
         ByMonth = counts.Select(c => new BarRow(c.Label, c.Count, c.Count * MaxBar / monthMax)).ToList();
 
-        OverdueNow = s.ActiveLoans.Count(s.IsOverdue);
+        OverdueNow = s.OverdueLoans().Count;
     }
 
     public IReadOnlyList<BarRow> TopBooks { get; }

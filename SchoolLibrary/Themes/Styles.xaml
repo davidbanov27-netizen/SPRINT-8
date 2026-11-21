@@ -2,14 +2,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- ===== Цветове ===== -->
-    <SolidColorBrush x:Key="BgBrush" Color="#F3F4F6"/>
+    <!-- Топла основа: кремав фон, какаова лява лента. -->
+    <SolidColorBrush x:Key="BgBrush" Color="#FFF8F1"/>
     <SolidColorBrush x:Key="PanelBrush" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="SideBrush" Color="#1F2A44"/>
-    <SolidColorBrush x:Key="Side2Brush" Color="#2D3B5E"/>
-    <SolidColorBrush x:Key="AccentBrush" Color="#2563EB"/>
-    <SolidColorBrush x:Key="LineBrush" Color="#D1D5DB"/>
-    <SolidColorBrush x:Key="TextBrush" Color="#111827"/>
-    <SolidColorBrush x:Key="MutedBrush" Color="#6B7280"/>
+    <SolidColorBrush x:Key="SideBrush" Color="#4A2C2A"/>
+    <SolidColorBrush x:Key="Side2Brush" Color="#633C37"/>
+    <SolidColorBrush x:Key="LineBrush" Color="#EADBCB"/>
+    <SolidColorBrush x:Key="TextBrush" Color="#3B2A24"/>
+    <SolidColorBrush x:Key="MutedBrush" Color="#8A7468"/>
+
+    <!-- Цветове по подразбиране (тема „Мед“). Всеки екран ги заменя със своя тема от Themes/Theme.*.xaml. -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#D97706"/>
+    <SolidColorBrush x:Key="AccentDarkBrush" Color="#A85C05"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#FDF1E0"/>
+    <SolidColorBrush x:Key="AccentBorderBrush" Color="#F2C98F"/>
 
     <SolidColorBrush x:Key="OkBrush" Color="#15803D"/>
     <SolidColorBrush x:Key="OkBg" Color="#DCFCE7"/>
@@ -20,22 +26,41 @@
     <SolidColorBrush x:Key="WarnBrush" Color="#B45309"/>
     <SolidColorBrush x:Key="WarnBg" Color="#FEF3C7"/>
     <SolidColorBrush x:Key="WarnBorder" Color="#FCD34D"/>
-    <SolidColorBrush x:Key="InfoBrush" Color="#1E40AF"/>
-    <SolidColorBrush x:Key="InfoBg" Color="#E0ECFF"/>
-    <SolidColorBrush x:Key="InfoBorder" Color="#93C5FD"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="#8A4A04"/>
+    <SolidColorBrush x:Key="InfoBg" Color="#FDF1E0"/>
+    <SolidColorBrush x:Key="InfoBorder" Color="#F2C98F"/>
 
     <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
     <!-- ===== Текст ===== -->
     <Style x:Key="PageTitle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{DynamicResource AccentDarkBrush}"/>
         <Setter Property="Margin" Value="0,0,0,14"/>
     </Style>
 
+    <Style x:Key="PageSubtitle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource MutedBrush}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,2,0,0"/>
+    </Style>
+
+    <!-- Цветна лента най-горе на всеки екран -->
+    <Style x:Key="PageHeader" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="16"/>
+        <Setter Property="Padding" Value="22,16"/>
+        <Setter Property="Margin" Value="0,0,0,18"/>
+    </Style>
+
     <Style x:Key="SectionTitle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{DynamicResource AccentDarkBrush}"/>
         <Setter Property="Margin" Value="0,18,0,8"/>
     </Style>
 
@@ -90,18 +115,25 @@
         <Setter Property="Background" Value="{StaticResource PanelBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource LineBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="CornerRadius" Value="6"/>
-        <Setter Property="Padding" Value="14,12"/>
+        <Setter Property="CornerRadius" Value="14"/>
+        <Setter Property="Padding" Value="18,14"/>
         <Setter Property="Margin" Value="0,0,0,14"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="14" ShadowDepth="1" Direction="270" Opacity="0.10" Color="#7C4A2D"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- ===== Бутони ===== -->
     <Style TargetType="Button">
         <Setter Property="Padding" Value="16,8"/>
         <Setter Property="Margin" Value="0,0,8,0"/>
-        <Setter Property="Background" Value="#F9FAFB"/>
-        <Setter Property="BorderBrush" Value="#9CA3AF"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentBorderBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AccentDarkBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -110,7 +142,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="4"
+                            CornerRadius="10"
                             Padding="{TemplateBinding Padding}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
@@ -119,7 +151,7 @@
                             <Setter TargetName="Bd" Property="Opacity" Value="0.85"/>
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="#1D4ED8"/>
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource AccentDarkBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="Opacity" Value="0.45"/>
@@ -131,8 +163,8 @@
     </Style>
 
     <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
@@ -142,7 +174,8 @@
         <Setter Property="Padding" Value="6,5"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="MinWidth" Value="240"/>
-        <Setter Property="BorderBrush" Value="#9CA3AF"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
     </Style>
 
     <Style TargetType="ComboBox">
@@ -168,6 +201,8 @@
         <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource LineBrush}"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="RowBackground" Value="White"/>
+        <Setter Property="AlternationCount" Value="2"/>
+        <Setter Property="AlternatingRowBackground" Value="#FFFBF6"/>
         <Setter Property="BorderBrush" Value="{StaticResource LineBrush}"/>
         <Setter Property="SelectionMode" Value="Single"/>
         <Setter Property="MinRowHeight" Value="34"/>
@@ -178,9 +213,10 @@
         <Setter Property="ColumnHeaderStyle">
             <Setter.Value>
                 <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="#F1F5F9"/>
-                    <Setter Property="Padding" Value="10,8"/>
-                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource AccentDarkBrush}"/>
+                    <Setter Property="Padding" Value="10,9"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
                     <Setter Property="BorderBrush" Value="{StaticResource LineBrush}"/>
                     <Setter Property="BorderThickness" Value="0,0,0,1"/>
                 </Style>
@@ -192,15 +228,22 @@
                     <Setter Property="Padding" Value="10,4"/>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <!-- ===== Меню вляво ===== -->
+    <!-- ===== Меню вляво: всеки раздел има свой цвят (NavItem.Accent) ===== -->
     <Style x:Key="NavItemStyle" TargetType="ListBoxItem">
-        <Setter Property="Foreground" Value="#E2E8F0"/>
-        <Setter Property="Padding" Value="16,10"/>
+        <Setter Property="Foreground" Value="#F6E7D8"/>
+        <Setter Property="Padding" Value="14,11"/>
+        <Setter Property="Margin" Value="10,2"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -209,6 +252,7 @@
                             Background="Transparent"
                             BorderBrush="Transparent"
                             BorderThickness="4,0,0,0"
+                            CornerRadius="10"
                             Padding="{TemplateBinding Padding}">
                         <ContentPresenter/>
                     </Border>
@@ -218,7 +262,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource Side2Brush}"/>
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="#60A5FA"/>
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{Binding Accent}"/>
                             <Setter Property="Foreground" Value="White"/>
                             <Setter Property="FontWeight" Value="SemiBold"/>
                         </Trigger>

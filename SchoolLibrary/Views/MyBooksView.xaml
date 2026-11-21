@@ -1,9 +1,17 @@
 <UserControl x:Class="SchoolLibrary.Views.MyBooksView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Theme.Gold.xaml"/>
+    </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="24,20">
-            <TextBlock Text="Моите книги" Style="{StaticResource PageTitle}"/>
+            <Border Style="{StaticResource PageHeader}">
+                <StackPanel>
+                    <TextBlock Text="🎒 Моите книги" Style="{StaticResource PageTitle}" Margin="0"/>
+                    <TextBlock Text="Какво си взел и кога трябва да го върнеш." Style="{StaticResource PageSubtitle}"/>
+                </StackPanel>
+            </Border>
 
             <DataGrid ItemsSource="{Binding Rows}" Visibility="{Binding HasRows, Converter={StaticResource BoolToVis}}">
                 <DataGrid.Columns>

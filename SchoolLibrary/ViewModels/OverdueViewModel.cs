@@ -6,9 +6,7 @@ public class OverdueViewModel : PageViewModel
 {
     public OverdueViewModel(LibraryService s)
     {
-        Rows = s.ActiveLoans
-            .Where(s.IsOverdue)
-            .OrderBy(l => l.DueDate)
+        Rows = s.OverdueLoans()
             .Select(l => RowFactory.ToLoanRow(s, l))
             .ToList();
     }

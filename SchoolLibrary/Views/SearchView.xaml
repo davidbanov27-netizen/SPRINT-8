@@ -2,17 +2,29 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SchoolLibrary.Views">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Theme.Coral.xaml"/>
+    </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="24,20">
-            <TextBlock Text="Какво искаш да прочетеш?" Style="{StaticResource PageTitle}"/>
+            <Border Style="{StaticResource PageHeader}">
+                <StackPanel>
+                    <TextBlock Text="🔎 Какво искаш да прочетеш?" Style="{StaticResource PageTitle}" Margin="0"/>
+                    <TextBlock Text="Намери книга по заглавие или автор и виж дали е налична." Style="{StaticResource PageSubtitle}"/>
+                </StackPanel>
+            </Border>
 
             <Border Style="{StaticResource Card}">
                 <StackPanel>
                     <TextBox Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}"
                              FontSize="15" Padding="8,7"
-                             ToolTip="Например: кратка книга за приключения за 6. клас"/>
+                             ToolTip="Заглавие или автор. Enter за търсене">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding KeywordCommand}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
                     <TextBlock Style="{StaticResource MutedText}" Margin="0,6,0,0" FontSize="12"
-                               Text="Например: кратка книга за приключения за 6. клас"/>
+                               Text="Търсене по думи: заглавие или автор (Enter). За описание като „кратка книга за приключения за 6. клас“ – „Попитай ИИ“."/>
                     <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
                         <Button Content="Търси по думи" Command="{Binding KeywordCommand}"/>
                         <Button Content="Попитай ИИ" Style="{StaticResource PrimaryButton}" Command="{Binding AskAiCommand}"/>

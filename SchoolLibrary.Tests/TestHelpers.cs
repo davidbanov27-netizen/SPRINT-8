@@ -13,7 +13,7 @@ internal sealed class InMemoryRepository : ILibraryRepository
 
     public LibraryData Data { get; private set; }
     public int SaveCount { get; private set; }
-    public string? LastError => null;
+    public string? LastError { get; set; }
 
     public LibraryData Load() => Data;
 

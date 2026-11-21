@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Тема „Plum“ (Статистика). Всеки екран подава свои цветове; стиловете в Styles.xaml ги четат с DynamicResource. -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#7E22CE"/>
+    <SolidColorBrush x:Key="AccentDarkBrush" Color="#621BA1"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#F2E9FA"/>
+    <SolidColorBrush x:Key="AccentBorderBrush" Color="#CEABEC"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="#581890"/>
+    <SolidColorBrush x:Key="InfoBg" Color="#F2E9FA"/>
+    <SolidColorBrush x:Key="InfoBorder" Color="#CEABEC"/>
+</ResourceDictionary>
