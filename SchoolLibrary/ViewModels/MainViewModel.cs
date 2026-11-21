@@ -1,11 +1,16 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Windows.Media;
 using SchoolLibrary.Models;
 using SchoolLibrary.Services;
 
 namespace SchoolLibrary.ViewModels;
 
-public sealed record NavItem(string Key, string Title);
+/// <summary>Елемент от менюто: иконка и цвят на раздела (същият цвят като темата на екрана му).</summary>
+public sealed record NavItem(string Key, string Title, string Icon, string AccentHex)
+{
+    public Brush Accent => (Brush)new BrushConverter().ConvertFromString(AccentHex)!;
+}
 
 public class MainViewModel : ViewModelBase, INavigator
 {
@@ -18,17 +23,54 @@ public class MainViewModel : ViewModelBase, INavigator
     private bool _isSignedIn;
     private string _userTitle = "";
     private string _userMode = "";
+    private string _storageNotice = "";
+    private bool _noticeIsSaveError;
 
     public MainViewModel(LibraryService service, IAiSearchService ai)
     {
         _service = service;
         _ai = ai;
         LogoutCommand = new RelayCommand(ShowLogin);
+        DismissNoticeCommand = new RelayCommand(() => StorageNotice = "");
+
+        // Предупреждение от зареждането (повреден файл, стара версия) и от всеки неуспешен запис.
+        StorageNotice = service.LoadNotice ?? "";
+        service.StorageStatusChanged += OnStorageStatus;
         ShowLogin();
     }
 
     public ObservableCollection<NavItem> NavItems { get; } = new();
     public ICommand LogoutCommand { get; }
+    public ICommand DismissNoticeCommand { get; }
+
+    /// <summary>Предупреждение за съхранението на данните (празно = всичко е наред).</summary>
+    public string StorageNotice
+    {
+        get => _storageNotice;
+        private set
+        {
+            if (Set(ref _storageNotice, value))
+            {
+                OnPropertyChanged(nameof(HasStorageNotice));
+            }
+        }
+    }
+
+    public bool HasStorageNotice => _storageNotice.Length > 0;
+
+    private void OnStorageStatus(string? error)
+    {
+        if (!string.IsNullOrEmpty(error))
+        {
+            StorageNotice = error;
+            _noticeIsSaveError = true;
+        }
+        else if (_noticeIsSaveError)
+        {
+            StorageNotice = "";
+            _noticeIsSaveError = false;
+        }
+    }
 
     public ViewModelBase? CurrentPage
     {
@@ -103,21 +145,21 @@ public class MainViewModel : ViewModelBase, INavigator
         {
             UserTitle = "Библиотекар";
             UserMode = "Режим „Библиотекар“";
-            NavItems.Add(new NavItem("dash", "Табло"));
-            NavItems.Add(new NavItem("catalog", "Каталог"));
-            NavItems.Add(new NavItem("readers", "Читатели"));
-            NavItems.Add(new NavItem("loan", "Заемане"));
-            NavItems.Add(new NavItem("return", "Връщане"));
-            NavItems.Add(new NavItem("overdue", "Просрочени"));
-            NavItems.Add(new NavItem("stats", "Статистика"));
+            NavItems.Add(new NavItem("dash", "Табло", "🏠", "#F59E0B"));
+            NavItems.Add(new NavItem("catalog", "Каталог", "📚", "#EA580C"));
+            NavItems.Add(new NavItem("readers", "Читатели", "👥", "#EC4899"));
+            NavItems.Add(new NavItem("loan", "Заемане", "📖", "#84CC16"));
+            NavItems.Add(new NavItem("return", "Връщане", "📥", "#22D3EE"));
+            NavItems.Add(new NavItem("overdue", "Просрочени", "⏰", "#F87171"));
+            NavItems.Add(new NavItem("stats", "Статистика", "📊", "#C084FC"));
         }
         else
         {
-            UserTitle = reader.Name;
+            UserTitle = $"Здравей, {reader.Name.Split(' ')[0]}! 👋";
             UserMode = "Режим „Читател“";
-            NavItems.Add(new NavItem("search", "Търсене"));
-            NavItems.Add(new NavItem("recs", "Препоръки"));
-            NavItems.Add(new NavItem("mybooks", "Моите книги"));
+            NavItems.Add(new NavItem("search", "Търсене", "🔎", "#FB7C5C"));
+            NavItems.Add(new NavItem("recs", "Препоръки", "✨", "#E879F9"));
+            NavItems.Add(new NavItem("mybooks", "Моите книги", "🎒", "#EAB308"));
         }
 
         IsSignedIn = true;

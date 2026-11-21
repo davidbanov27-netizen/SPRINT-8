@@ -2,9 +2,17 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SchoolLibrary.Views">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Theme.Orchid.xaml"/>
+    </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="24,20">
-            <TextBlock Text="Препоръки за теб" Style="{StaticResource PageTitle}"/>
+            <Border Style="{StaticResource PageHeader}">
+                <StackPanel>
+                    <TextBlock Text="✨ Препоръки за теб" Style="{StaticResource PageTitle}" Margin="0"/>
+                    <TextBlock Text="Подбрани книги според интересите и класа ти." Style="{StaticResource PageSubtitle}"/>
+                </StackPanel>
+            </Border>
 
             <Border Style="{StaticResource Card}">
                 <StackPanel>

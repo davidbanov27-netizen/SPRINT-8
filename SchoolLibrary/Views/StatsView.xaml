@@ -2,19 +2,29 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Theme.Plum.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         <!-- Един шаблон за хоризонтална колонна диаграма: етикет, лента, число -->
         <DataTemplate x:Key="BarTemplate">
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <TextBlock Text="{Binding Label}" Width="250" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
-                <Border Width="{Binding BarWidth}" Height="16" CornerRadius="3" Background="#93C5FD" MinWidth="2"/>
+                <Border Width="{Binding BarWidth}" Height="16" CornerRadius="6" Background="{DynamicResource AccentBrush}" MinWidth="2"/>
                 <TextBlock Text="{Binding Value}" FontWeight="SemiBold" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
         </DataTemplate>
+            </ResourceDictionary>
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="24,20">
-            <TextBlock Text="Статистика" Style="{StaticResource PageTitle}"/>
+            <Border Style="{StaticResource PageHeader}">
+                <StackPanel>
+                    <TextBlock Text="📊 Статистика" Style="{StaticResource PageTitle}" Margin="0"/>
+                    <TextBlock Text="Най-четените книги и движението по месеци." Style="{StaticResource PageSubtitle}"/>
+                </StackPanel>
+            </Border>
 
             <Border Style="{StaticResource Card}">
                 <StackPanel>

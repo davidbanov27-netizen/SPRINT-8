@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Тема „Brick“ (Просрочени). Всеки екран подава свои цветове; стиловете в Styles.xaml ги четат с DynamicResource. -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#B91C1C"/>
+    <SolidColorBrush x:Key="AccentDarkBrush" Color="#901616"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#F8E8E8"/>
+    <SolidColorBrush x:Key="AccentBorderBrush" Color="#E4A9A9"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="#821414"/>
+    <SolidColorBrush x:Key="InfoBg" Color="#F8E8E8"/>
+    <SolidColorBrush x:Key="InfoBorder" Color="#E4A9A9"/>
+</ResourceDictionary>

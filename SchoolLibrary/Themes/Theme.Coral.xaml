@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Тема „Coral“ (Търсене). Всеки екран подава свои цветове; стиловете в Styles.xaml ги четат с DynamicResource. -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#E4572E"/>
+    <SolidColorBrush x:Key="AccentDarkBrush" Color="#B24424"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#FCEEEA"/>
+    <SolidColorBrush x:Key="AccentBorderBrush" Color="#F5BFB0"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="#A03D20"/>
+    <SolidColorBrush x:Key="InfoBg" Color="#FCEEEA"/>
+    <SolidColorBrush x:Key="InfoBorder" Color="#F5BFB0"/>
+</ResourceDictionary>

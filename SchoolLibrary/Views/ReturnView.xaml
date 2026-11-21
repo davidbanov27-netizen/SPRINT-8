@@ -2,9 +2,17 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SchoolLibrary.Views">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Theme.Ocean.xaml"/>
+    </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="24,20">
-            <TextBlock Text="Връщане на книга" Style="{StaticResource PageTitle}"/>
+            <Border Style="{StaticResource PageHeader}">
+                <StackPanel>
+                    <TextBlock Text="📥 Връщане на книга" Style="{StaticResource PageTitle}" Margin="0"/>
+                    <TextBlock Text="Въведи номера на екземпляра или избери читател." Style="{StaticResource PageSubtitle}"/>
+                </StackPanel>
+            </Border>
             <local:MessageBanner/>
 
             <Border Style="{StaticResource Card}">
