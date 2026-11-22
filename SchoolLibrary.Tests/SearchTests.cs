@@ -232,7 +232,9 @@ public class SearchTests
     public void Availability_BookWithoutCopies()
     {
         var s = TestLibrary.Empty();
-        s.AddBookOk("Без копия", 0, "Автор Нула");
+        var book = s.AddBookOk("Без копия", 1, "Автор Нула");
+        var only = s.CopiesOf(book)[0];
+        s.UpdateCopy(only.Id, only.InventoryNumber, CopyStatus.Withdrawn); // отписан екземпляр не се брои
 
         var result = s.FindBooks("копия").Single();
 

@@ -26,6 +26,8 @@
 | [docs/05_books_and_readers.md](docs/05_books_and_readers.md) | **Книги, екземпляри, читатели**: правила за валидация, тестове, демонстрация |
 | [docs/06_loans_and_returns.md](docs/06_loans_and_returns.md) | **Заемане и връщане**: правила, защита от двойно заемане, тестове, демонстрация |
 | [docs/07_search_overdue_persistence.md](docs/07_search_overdue_persistence.md) | **Търсене, просрочие, постоянно съхранение** и новият топъл дизайн |
+| [docs/08_test_plan.md](docs/08_test_plan.md) | **Тест план** (Спринт 8): компонентни, интеграционни, E2E и регресионни тестове |
+| [docs/09_test_results_and_defects.md](docs/09_test_results_and_defects.md) | **Резултати и регистър на дефектите**, Release Candidate 1 |
 | [docs/backlog.md](docs/backlog.md) | **Актуален backlog** със статуси |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Клонове, commit-и, pull request, Definition of Done |
 
