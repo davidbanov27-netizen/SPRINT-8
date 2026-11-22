@@ -341,7 +341,7 @@ public class BookTests
     {
         var s = TestLibrary.Seeded();
 
-        Assert.Equal(9, s.SearchKeyword("  ").Count);
+        Assert.Equal(s.Books.Count, s.SearchKeyword("  ").Count);
     }
 
     [Fact]

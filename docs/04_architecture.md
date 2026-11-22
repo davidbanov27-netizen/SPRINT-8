@@ -141,7 +141,7 @@ SchoolLibrary.Tests/                xUnit тестове (Етап 5)
 | Версия на данните | Безопасно обновяване на файла | ✅ `LibraryData.SchemaVersion = 2`; по-стар файл се копира в `library.v{N}.bak` | – |
 | Хранилище | Заменяемо през интерфейс | `ILibraryRepository` + `DataStore` (JSON) | SQLite – по-късно (**TD-07**) |
 | ИИ | Истински модел през API | `LocalAiSearchService` (правила, без интернет) | **TD-06** |
-| Тестове | Автоматични тестове | ✅ Проект `SchoolLibrary.Tests` (xUnit, 215 теста): книги, екземпляри, читатели, заемане/връщане, търсене, просрочие, запис | Търсене с ИИ, статистика |
+| Тестове | Автоматични тестове | ✅ Проект `SchoolLibrary.Tests` (xUnit, 232 теста): книги, екземпляри, читатели, заемане/връщане, търсене, просрочие, запис | Търсене с ИИ, статистика |
 | Съхранение | Данните остават след рестартиране | ✅ `DataStore`: запис през временен файл, копие `.bak`, възстановяване, `DataIntegrity` | SQLite (**TD-07**) |
 
 `LibraryService` е `partial` клас в шест файла: `LibraryService.cs` (четене), `LibraryService.Search.cs` (`FindBooks`), `LibraryService.Overdue.cs` (просрочие и блокиране), `LibraryService.Loans.cs` (заемане и връщане – `Lend`, `Return`), `LibraryService.Books.cs` (книги и екземпляри), `LibraryService.Readers.cs` (читатели). Всяка операция по запис връща `OperationResult` със списък от грешки (поле + разбираемо съобщение на български), който екранът само показва. Подробности: [05_books_and_readers.md](05_books_and_readers.md).
