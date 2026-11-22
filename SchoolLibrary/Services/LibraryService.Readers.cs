@@ -63,6 +63,16 @@ public partial class LibraryService
             return OperationResult<Reader>.Fail(errors);
         }
 
+        // DEF-03: смяна на ролята не бива да оставя читателя над лимита на новата роля.
+        var newLimit = role == ReaderRole.Teacher ? Settings.TeacherLimit : Settings.StudentLimit;
+        var open = LoansOf(reader).Count;
+        if (open > newLimit)
+        {
+            var roleName = role == ReaderRole.Teacher ? "учител" : "ученик";
+            return OperationResult<Reader>.Fail(nameof(Reader.Role),
+                $"Читателят има {open} неврънати книги, а лимитът за {roleName} е {newLimit}. Върнете книги преди тази промяна.");
+        }
+
         reader.Name = candidate.Name;
         reader.Role = candidate.Role;
         reader.ClassName = candidate.ClassName;

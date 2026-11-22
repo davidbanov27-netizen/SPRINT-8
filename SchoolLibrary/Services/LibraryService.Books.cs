@@ -143,6 +143,13 @@ public partial class LibraryService
                 "Състояние „Зает“ се задава само със заемане.");
         }
 
+        // DEF-02: екземпляр на деактивирана книга не може да се „съживява“ – би останал свободен към неактивно заглавие.
+        if (GetBook(copy.BookId) is { IsActive: false } && status is not (CopyStatus.Withdrawn or CopyStatus.Lost))
+        {
+            return OperationResult<BookCopy>.Fail(nameof(BookCopy.Status),
+                "Книгата е деактивирана – екземплярите ѝ могат да са само „Отписани“ или „Загубени“.");
+        }
+
         var number = CopyValidator.Normalize(inventoryNumber);
         var errors = CopyValidator.Validate(number, _data.Copies.Where(c => c.Id != copy.Id));
         if (errors.Count > 0)
