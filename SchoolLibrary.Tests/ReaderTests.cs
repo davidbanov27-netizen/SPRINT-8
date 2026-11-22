@@ -26,9 +26,12 @@ public class ReaderTests
     {
         var s = TestLibrary.Seeded();
 
+        var highest = s.AllReaders.Max(r => int.Parse(r.CardNumber.Substring(3)));
+
         var reader = s.AddReaderOk("Нов Ученик", "9В");
 
-        Assert.Equal("RD-0105", reader.CardNumber);
+        Assert.Equal($"RD-{highest + 1:D4}", reader.CardNumber);
+        Assert.Equal(1, s.AllReaders.Count(r => r.CardNumber == reader.CardNumber));
     }
 
     [Fact]

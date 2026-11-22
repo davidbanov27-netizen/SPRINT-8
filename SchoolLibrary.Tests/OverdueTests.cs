@@ -162,7 +162,7 @@ public class OverdueTests
 
         var readers = s.OverdueLoans().Select(l => l.ReaderId).Distinct().OrderBy(i => i).ToArray();
 
-        Assert.Equal(new[] { 101, 103 }, readers);
+        Assert.Equal(new[] { 101, 103, 110, 117, 121, 125 }, readers);
         Assert.Equal(7, s.DaysOverdue(s.LoansOf(s.GetReader(101)!).Single(s.IsOverdue)));
         Assert.Equal(20, s.DaysOverdue(s.LoansOf(s.GetReader(103)!).Single(s.IsOverdue)));
     }
